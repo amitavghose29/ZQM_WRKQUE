@@ -24,13 +24,13 @@
 								<CheckBox text="Show All Users" selected="true"/>
 								<CheckBox text="Show Unassigned" selected="true"/></VBox>
 						</FlexBox>
-						<Table id="idProductsTable" items="" growing="true" growingThreshold="100" growingScrollToLoad="false" mode="MultiSelect"
+						<Table id="wrkQueueTable" items="" growing="true" growingThreshold="100" growingScrollToLoad="false" mode="MultiSelect"
 							includeItemInSelection="true">
 							<headerToolbar>
 								<OverflowToolbar>
 									<Title id="TableHeaderCount" text="{i18n>TXT_Assigned_WorkList}" level="H2"/>
 									<ToolbarSpacer/>
-									<Button icon="sap-icon://create" type="Emphasized"/>
+									<Button icon="sap-icon://create" type="Emphasized" press="onCreate"/>
 									<Button icon="sap-icon://copy" press="onPressCopy" type="Emphasized"/>
 									<Button tooltip="Sort" id="idsort" icon="sap-icon://sort" press="handleSortButtonPressed"/>
 									<Button tooltip="Filter" id="idbuttonfilter" icon="sap-icon://filter" press="handleFilterButtonPressed"/>
@@ -41,28 +41,28 @@
 							
 							<columns>
 								<!--<Column id="empty" visible="{= ${device>/system/phone}}"><Text visible="{= ${device>/system/phone}}"/></Column>-->
-								<Column hAlign="Left" demandPopin="true">
+								<Column id="ncrCol" hAlign="Left" demandPopin="true">
 									<Text text="{i18n>TXT_Ncrno}"></Text>
 								</Column>
-								<Column hAlign="Left">
+								<Column id="discCol" hAlign="Left">
 									<Text text="{i18n>TXT_Discno}"></Text>
 								</Column>
-								<Column hAlign="Left">
+								<Column id="nctypCol" hAlign="Left">
 									<Text text="{i18n>TXT_Ncrtypes}"></Text>
 								</Column>
-								<Column hAlign="Left">
+								<Column id="compCol" hAlign="Left">
 									<Text text="{i18n>TXT_Componentno}"></Text>
 								</Column>
-								<Column hAlign="Left">
+								<Column id="rncCol" hAlign="Left">
 									<Text text="{i18n>TXT_Rncpriority}"></Text>
 								</Column>
-								<Column hAlign="Left">
+								<Column id="locCol" hAlign="Left">
 									<Text text="{i18n>TXT_location}"></Text>
 								</Column>
-								<Column hAlign="Left">
+								<Column id="detworkCol" hAlign="Left">
 									<Text text="{i18n>TXT_Detworkcenter}"></Text>
 								</Column>
-								<Column hAlign="Left">
+								<Column id="detectedCol" hAlign="Left">
 									<Text text="{i18n>TXT_Detecteddate}"></Text>
 								</Column>
 							</columns>
