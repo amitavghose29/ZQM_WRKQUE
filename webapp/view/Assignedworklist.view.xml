@@ -24,8 +24,7 @@
 								<CheckBox text="Show All Users" selected="true"/>
 								<CheckBox text="Show Unassigned" selected="true"/></VBox>
 						</FlexBox>
-						<Table id="wrkQueueTable" items="" growing="true" growingThreshold="100" growingScrollToLoad="false" mode="MultiSelect"
-							includeItemInSelection="true">
+						<Table id="wrkQueueTable" items="" selectionChange="handleSelectionChange" growing="true" growingThreshold="100" growingScrollToLoad="false" includeItemInSelection="true" mode="SingleSelectMaster">
 							<headerToolbar>
 								<OverflowToolbar>
 									<Title id="TableHeaderCount" text="{i18n>TXT_Assigned_WorkList}" level="H2"/>
@@ -69,7 +68,7 @@
 							<items>
 								<ColumnListItem >
 									<cells>
-										<Text text="F721000007"/>
+										<Text text="200000700"/>
 										<Text text="0001"/>
 										<Text text="Q3 Internal Notif."/>
 										<Text text="A220-IP-701"/>

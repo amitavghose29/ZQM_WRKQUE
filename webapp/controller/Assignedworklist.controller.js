@@ -35,8 +35,12 @@ sap.ui.define([
 
 
 		},
-		onPressCopy:function(){
-			var oView = this.getView();
+		handleSelectionChange: function(oEvent){
+			var sPath = oEvent.getParameter("listItem").getBindingContextPath();
+		},
+		onPressCopy:function(oEvent){
+          
+		  var oView = this.getView();
 			var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
 			if(tab.length === 0){
 				this._pValueHelpDialog = Fragment.load({
@@ -52,7 +56,16 @@ sap.ui.define([
 				oValueHelpDialog.open();
 			});
 			}else{
-				
+				var oNotificationNumber=tab[0].getCells()[0].mProperties.text;
+				var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+				var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+				   target : { shellHash : "zqmncr-display&/Ncheader/"+oNotificationNumber}
+				  })) || "";
+				oCrossAppNavigator.toExternal({
+					target: {
+					  shellHash: hash
+					}
+				  });   
 			}
 		},
 		handleValueHelp: function (oEvent) {
