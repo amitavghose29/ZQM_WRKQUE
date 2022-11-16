@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="{i18n>SelectNCNumTitle}" 
+        items="{oNcNumFBModel>/}" 
+        liveChange="onNcNoFBLiveSearch" 
+        confirm="_confirmNcNoFBValueHelpDialog"
+	    cancel="_handleNcNoFBValueHelpClose">
+		<StandardListItem  title="{oNcNumFBModel>Value}" info="{oNcNumFBModel>Description}" />
+	</SelectDialog>
+</core:FragmentDefinition>

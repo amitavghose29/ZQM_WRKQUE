@@ -2,3 +2,7 @@
 .size5 {
 	font-size : 20rem;
 }
+.vhdialogGRSearchstyle {
+    min-width: 40rem;
+    width: 900px !important;
+}

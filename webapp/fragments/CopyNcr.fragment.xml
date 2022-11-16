@@ -1,17 +1,106 @@
-<core:FragmentDefinition
-	xmlns="sap.m"
-	xmlns:core="sap.ui.core">
-	<SelectDialog
-		title="NCR Number"
-		items="{/ProductCollection}"
-		search="_handleValueHelpSearch"
-		confirm="_handleValueHelpClose"
+<core:FragmentDefinition  xmlns="sap.m" xmlns:core="sap.ui.core"  xmlns:fb="sap.ui.comp.filterbar">
+	<!--<SelectDialog title="Copy NC" items="{sample>/tablelist}" liveChange="onSearchOrder" confirm="_configValueHelpDialogOrder"
 		cancel="_handleValueHelpClose">
-		<StandardListItem
-			icon="{ProductPicUrl}"
-			iconDensityAware="false"
-			iconInset="false"
-			title="{Name}"
-			description="{Productid}" />
-	</SelectDialog>
+		<StandardListItem highlight="Information" title="{sample>Id}" info="{Ktext}"/>
+	</SelectDialog>-->
+    <!-- ok=".onValueHelpOkNCPress" cancel=".onValueHelpCancelNCPress" afterClose=".onValueHelpAfterNCClose" supportMultiselect="false" key="ProductId" descriptionKey="Name"  -->
+    <Dialog title="{i18n>CopyNcTitle}" class="vhdialogGRSearchstyle">
+        <VBox class="sapUiSizeCompact">
+			<fb:FilterBar search="onFilterBarSearchCopyNC" showRestoreButton="false">
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem groupName="G1" groupTitle="Group1" name="Notification" label="NC Number" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="idFBNcNum" valueHelpRequest="onNCNoFBVHRequest" showValueHelp="true" 
+                            showSuggestion="true" 
+                            suggestionItems="{ path : '/f4_genericSet',
+                                filters : [{   
+                                 path : 'Key',                        
+                                 operator : 'EQ',
+                                 value1 : 'NOTIF'
+                                    }]
+                                }" >
+                                <suggestionItems>
+									<core:Item text="{Value}" />
+								</suggestionItems>
+							</Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                        <fb:FilterGroupItem groupName="G1" groupTitle="Group1" name="SerialNumber" label="Serial Number" visibleInFilterBar="true">
+                            <fb:control>
+                                <Input id="idFBSerNo" valueHelpRequest="onSerNoFBVHRequest" showValueHelp="true"
+                                showSuggestion="true" 
+                                suggestionItems="{ path : '/f4_genericSet',
+                                    filters : [{   
+                                     path : 'Key',                        
+                                     operator : 'EQ',
+                                     value1 : 'SERNR'
+                                        }]
+                                    }" >
+                                    <suggestionItems>
+									<core:Item text="{Value}" />
+								</suggestionItems>
+							</Input>
+                            </fb:control>
+                        </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="G1" groupTitle="Group1" name="Aircraft" label="Aircraft" visibleInFilterBar="true">
+                        <fb:control>
+                            <Input id="idFBAircraft" valueHelpRequest="onAircrafthelpRequest" showValueHelp="true"
+                             showSuggestion="true" 
+                             suggestionItems="{ path : '/f4_genericSet',
+                            filters : [{   
+                                 path : 'Key',                        
+                                 operator : 'EQ',
+                                 value1 : 'AIR'
+                                    }]
+                                }" >
+                                    <suggestionItems>
+									<core:Item text="{Value}" />
+								</suggestionItems>
+							</Input>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+            <Table id="idCopyNCTable" inset="false" items="{oNcCopyModel>/}" mode="SingleSelectMaster" 
+				itemPress="handleCloseUserValueHelpNCcopy">
+                <columns>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>Nc}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>NCtype}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="Notification Type" />
+                    </Column>
+                    
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>NcDesc}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18>SerialNum}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Text text="{i18n>AirCraftNo}" />
+                    </Column>
+                    
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle" type="Active">
+                        <cells>
+                            <Text text="{oNcCopyModel>Notification}"/>
+                            <Text text="{oNcCopyModel>NotifType}"/>
+                            <Text text="{oNcCopyModel>NotificationType}"/>
+                            <Text text="{oNcCopyModel>Description}"/>
+                            <Text text="{oNcCopyModel>SerialNumber}"/>
+                            <Text text="{oNcCopyModel>Aircraft}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </VBox>
+        <endButton>
+            <Button text="{i18n>Close}" press="_handleNCCopyVHClose" />
+        </endButton>
+    </Dialog>
 </core:FragmentDefinition>

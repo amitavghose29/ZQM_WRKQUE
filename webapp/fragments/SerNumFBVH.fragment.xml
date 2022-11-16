@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog   title="{i18n>SelectSerialNumber}" items="{oSerNoFBModel>/}" liveChange="onSerNoFBLiveSearch" confirm="_confirmSerNoFBValueHelpDialog"
+		cancel="_handleSerNoFBValueHelpClose">
+		<StandardListItem  title="{oSerNoFBModel>Value}" />
+	</SelectDialog>
+</core:FragmentDefinition>
