@@ -5,8 +5,14 @@ sap.ui.define([
     'sap/ui/model/FilterOperator',
 	'sap/ui/core/mvc/Controller',
 	'sap/ui/model/json/JSONModel',
+    'sap/m/Dialog',
+    'sap/m/TextArea',
+    'sap/m/DialogType',
+    'sap/m/ButtonType',
+    'sap/m/Button',
+    'sap/m/MessageBox',
 	'sap/ui/core/Fragment'
-], function (TablePersoController, WrkQueuePersoService,Filter,FilterOperator,Controller,JSONModel,Fragment) {
+], function (TablePersoController, WrkQueuePersoService,Filter,FilterOperator,Controller,JSONModel,Dialog,TextArea,DialogType,ButtonType,Button,MessageBox,Fragment) {
 	"use strict";
     //var ResetAllMode =  mlibrary.ResetAllMode;
 	return Controller.extend("com.airbus.zqmwrkque.controller.Assignedworklist", {
@@ -22,6 +28,32 @@ sap.ui.define([
 		onExit: function () {
 			this._oTPC.destroy();
 		},
+        openNotePopUp: function(oEvent){
+            var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
+			if(tab.length > 0){
+                if (!this.oNoteMessageDialog) {
+                    this.oNoteMessageDialog = new Dialog({
+                        type: DialogType.Message,
+                        title: "Note",
+                        content: new TextArea({placeholder:"Enter text",maxLength:100}),
+                        beginButton: new Button({
+                            type: ButtonType.Emphasized,
+                            text: "OK",
+                            press: function () {
+                                this.oNoteMessageDialog.close();
+                            }.bind(this)
+                        })
+                    });
+                }
+    
+                this.oNoteMessageDialog.open();
+
+            }else{
+                MessageBox.alert("Please select the NC Number Line Item");
+
+            }
+          
+        },
 		onCreate: function(oEvent){
 			var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
 			var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
@@ -50,16 +82,21 @@ sap.ui.define([
 
         onPressEdit: function(oEvent){
             var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
-            var ncr=tab[0].getCells()[0].mProperties.text;
-            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
-				                var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
-				                  target : { shellHash : "zqmncr-display&/Ncheader/"+ncr}
-				                })) || "";
-				                oCrossAppNavigator.toExternal({
-					             target: {
-					             shellHash: hash
-					             }
-				                });  
+            if(tab.length > 0){
+                var ncr=tab[0].getCells()[0].mProperties.text;
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                                    var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                                      target : { shellHash : "zqmncr-display&/Ncheader/"+ncr}
+                                    })) || "";
+                                    oCrossAppNavigator.toExternal({
+                                     target: {
+                                     shellHash: hash
+                                     }
+                                    });  
+            }else{
+                MessageBox.alert("Please select the NC Number Line Item.");
+            }
+           
 
         },
 		onPressCopy:function(oEvent){
@@ -408,7 +445,7 @@ sap.ui.define([
 
 
 
-		handleValueHelp: function (oEvent) {
+		handleValueHelpWC: function (oEvent) {
 			var oView = this.getView();
 			this.inputId = oEvent.getSource().getId();
 
@@ -429,6 +466,9 @@ sap.ui.define([
 				oValueHelpDialog.open();
 			});
 		},
+        handleValueHelpPS: function (oEvent) {
+        },
+
         onPersoButtonPressed: function (oEvent){
 			this._oTPC.openDialog();
 

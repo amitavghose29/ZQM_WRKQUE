@@ -1,6 +1,6 @@
 <mvc:View controllerName="com.airbus.zqmwrkque.controller.Assignedworklist" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
 	xmlns:core="sap.ui.core" xmlns="sap.m">
-	<Shell id="shell">
+	<!--<Shell id="shell">-->
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}" titleAlignment="Center">
@@ -9,11 +9,11 @@
 							<!--<CheckBox text=" keep This List" selected="false"/>-->
 							<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
 								<Label text="{i18n>LBL_Workcenter}"/>
-								<Input change="onDocNameChange" id="mdocid" showValueHelp="true" valueHelpRequest="handleValueHelp" showSuggestion="true"></Input>
+								<Input change="onDocNameChange" id="mdocid" showValueHelp="true" valueHelpRequest="handleValueHelpWC" showSuggestion="true"></Input>
 							</VBox>
 							<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
 								<Label text="{i18n>LBL_Production_Sequence}" class="sapUiSmallMarginEnd"/>
-								<Input id="idReservationNo1" showValueHelp="true" valueHelpRequest="handleValueHelp">
+								<Input id="idProdSeq" showValueHelp="true" valueHelpRequest="handleValueHelpPS">
 									<layoutData>
 										<FlexItemData growFactor="2"/>
 									</layoutData>
@@ -23,13 +23,14 @@
 							<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
 								<CheckBox text="Show All Users" selected="true"/>
 								<CheckBox text="Show Unassigned" selected="true"/></VBox>
+								<Button text="Go" click="onSearch" design="Emphasized"></Button>
 						</FlexBox>
 						<Table id="wrkQueueTable" items="" selectionChange="handleSelectionChange" growing="true" growingThreshold="100" growingScrollToLoad="false" includeItemInSelection="true" mode="SingleSelectMaster">
 							<headerToolbar>
 								<OverflowToolbar>
 									<Title id="TableHeaderCount" text="{i18n>TXT_Assigned_WorkList}" level="H2"/>
 									<ToolbarSpacer/>
-									<Button icon="sap-icon://notes" type="Emphasized" press="onSaveNote"/>
+									<Button icon="sap-icon://notes" type="Emphasized"  press="openNotePopUp"/>
 									<Button icon="sap-icon://create" type="Emphasized" press="onCreate"/>
 									<Button icon="sap-icon://copy" press="onPressCopy" type="Emphasized"/>
 									<Button icon="sap-icon://edit" press="onPressEdit" type="Emphasized"/>
@@ -100,5 +101,5 @@
 				</Page>
 			</pages>
 		</App>
-	</Shell>
+	<!--</Shell>-->
 </mvc:View>
