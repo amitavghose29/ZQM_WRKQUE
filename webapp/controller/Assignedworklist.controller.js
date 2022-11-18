@@ -17,6 +17,7 @@ sap.ui.define([
     //var ResetAllMode =  mlibrary.ResetAllMode;
 	return Controller.extend("com.airbus.zqmwrkque.controller.Assignedworklist", {
 		onInit: function () {
+            this.bDesc = true;
 			this._oTPC = new TablePersoController({
 				table: this.byId("wrkQueueTable"),
 				componentName: "wrkQueueApp",

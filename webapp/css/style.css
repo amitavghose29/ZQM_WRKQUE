@@ -6,3 +6,232 @@
     min-width: 40rem;
     width: 900px !important;
 }
+.equalColumns .columns {
+    min-height: 10px;
+  }
+  
+  .equalColumns .columns .sapMFlexItem {
+    padding: 0.5rem;
+  }
+  .sapUiRespGridMedia-Std-Desktop.sapUiFormResGridCont>.sapUiFormElementLbl:not(.sapUiRespGridSpanL12)>.sapMLabel {
+      text-align: start !important;
+  }
+  
+  /* component css*/
+  .sapUiForm .sapUiFormTitle {
+      font-weight: normal;
+      color: white !important;
+  }
+  
+  .sapUiBlockLayoutSizeXL:not(.sapUiBlockLayoutKeepFontSize) .sapUiBlockCellContent {
+      padding: 1rem 1rem;
+      font-size: 1rem;
+  }
+  /*.sapUiBlockCellContent {*/
+  
+  /*    background-color: #E2F0FE !important;*/
+  /*}*/
+  .sapUiBlockLayoutSizeXL:not(.sapUiBlockLayoutKeepFontSize) .sapUiBlockCellContent {
+      padding: 1rem 1rem !important;
+      font-size: 1rem;
+  }
+  
+  /* class tabContainer as your custom class added to the TabContainer */
+  .icontabtext {
+      font-weight: bold !important
+  }
+  
+  
+  .sapUiFormResLayout .sapUiRFLRow:first-child>.sapUiRFLContainer:first-child>.sapUiRFLContainerContent>.sapMLabel {
+      text-align: end!important;
+      width: 100%;
+      padding-right: 0.25rem;
+      box-sizing: border-box;
+      position: relative;
+      color: #333333 !important;
+  }
+  
+  /* #__xmlview0--idworkgroup.sapMText.sapUiSelectable.sapMTextMaxWidth.sapUiLargeMarginTopBottom.sapMBarChild{
+     color: white;
+     font-weight: bold;
+  
+  } */
+  
+  
+  /* [aria-selected="true"] {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: bottom;
+      font-weight: bold !important;
+      font-color: white;
+      background-color: #E2F0FE;
+  } */
+  
+  /*sapMIBar.sapMHeader-CTX {
+  &nbsp;&nbsp;&nbsp;
+      filter: none;
+      background-image: none;
+      background-color: #050298 !important;
+  
+  }*/
+  .sapUiFormResLayout .sapUiRFLRow:first-child>.sapUiRFLContainer:first-child>.sapUiRFLContainerContent>.sapMLabel {
+      text-align: start !important;
+      width: 100%;
+  }
+  
+  /*block layout background color*/
+  .sapUiBlockLayoutSizeL:not(.sapUiBlockLayoutKeepFontSize) .sapUiBlockCellContent {
+      background-color: #E2F0FE;
+  
+  }
+  
+  /*.sapMPage>.sapMPageHeader+section, .sapMPage>.sapMPageSubHeader+section, .sapMPage>.sapMPageHeader+.sapUiHiddenPlaceholder+section {
+      background: #E2F0FE;
+  }*/
+  
+  .sapUiForm .sapUiFormTitle {
+      background-color: #050298;
+  }
+  
+  .sapUiFormResLayout>.sapUiFormTitle {
+      background-color: #050298;
+      height: 2.75rem;
+      line-height: 2.75rem;
+      font-weight: bold;
+      font-size: 1rem;
+  }
+  
+  .sapUiForm .sapUiFormTitle {
+      font-weight: bold;
+      color: white;
+  
+  }
+  
+  .boarder {
+      border-style: solid;
+  }
+  
+  .formcolor1 {
+      background-color: #050298 !important;
+  }
+  
+  .sapMTB-Transparent-CTX>.sapMTitleTB.sapMTitleStyleAuto {
+      color: white;
+      /*font-size: 1.125rem;*/
+  }
+  .formcolor1{
+     background-color:red;
+  }
+  .formcolor {
+     background-color: #E2F0FE !important;
+      /*background-color: #E2F0FE;*/
+      border-style: solid;
+      border-color: white;
+  }
+  
+  .sapUiBlockLayoutSizeL:not(.sapUiBlockLayoutKeepFontSize) .sapUiBlockCellContent {
+      padding: 0rem 0rem;
+      font-size: 1rem;
+  }
+  
+  /*layout boarder color
+  .sapMITBBackgroundDesignTransparent>.sapMITBContainerContent>.sapMITBContent {
+      background-color: lightskyblue;
+  }*/
+  
+  /*page header color*/
+  .sapMPage .sapMPageHeader:not(.sapMIBar-CTX) .sapMIBar-CTX,
+  .sapMPageWithSubHeader .sapMPageSubHeader:not(.sapMIBar-CTX) .sapMIBar-CTX {
+      position: relative;
+      z-index: 2;
+      background-color: #E2F0FE;
+  }
+  
+  /*page title*/
+  .sapMDialog>header.sapMDialogTitle .sapMTitle {
+      color: white;
+      margin: 0;
+      vertical-align: middle;
+  }
+  
+  .sapMIBar.sapMHeader-CTX {
+      color: #32363a;
+      background-color: #050298 !important;
+      filter: none;
+      background-image: none;
+  }
+  
+  .sapMIBar-CTX .sapMTitle {
+      color: white;
+      text-shadow: none;
+      font-weight: bold;
+  }
+  
+  /*simple form tittle
+  .sapUiFormM .sapUiFormContainerTitle>.sapUiFormTitle {
+      height: 2.75rem;
+      line-height: 2.75rem;
+      font-weight: bold;
+      background-color: #050298 !important;
+  }
+  
+  .sapUiGrid td>.sapUiFormTitle {
+      text-align: start;
+      position: relative;
+      color: white;
+  }
+  */
+  sapUiFormContainerTitle>.sapUiFormTitleH1,
+  .sapUiFormContainerTitle>.sapUiFormTitleH2,
+  .sapUiFormContainerTitle>.sapUiFormTitleH3,
+  .sapUiFormContainerTitle>.sapUiFormTitleH4,
+  .sapUiFormContainerTitle>.sapUiFormTitleH5,
+  .sapUiFormContainerTitle>.sapUiFormTitleH6 {
+      font-size: .875rem;
+      color: white;
+  }
+  
+  .sapMLIBHighlightInformation {
+      background: none;
+  }
+  
+  /*block layout color*/
+  /*.sapUiBlockLayoutBackgroundDashboard:not(.sapUiBlockLayoutSizeS) .sapUiBlockLayoutRow:last-of-type .sapUiBlockCellContent {
+      background-color: skyblue;
+  }*/
+  
+  /* Added custom class for styling the width of value help dialog opened on click of serial no and traceability multi input fields - Code Start*/
+  .vhdialogstyleclass {
+      min-width: 20rem;
+      width: 400px !important;
+  }
+  
+  .vhdialogPOSearchstyle {
+      min-width: 40rem;
+      width: 1200px !important;
+  }
+  
+  .vhdialogGRSearchstyle {
+      min-width: 40rem;
+      width: 900px !important;
+  }
+  /* Added custom class for styling the width of value help dialog opened on click of serial no and traceability multi input fields - Code End*/
+  
+  .vhdialogNCSearchstyle {
+      min-width: 40rem;
+      width: 1200px !important;
+  }
+  
+  .sapMToken {
+      color: #3c4038;
+  }
+  
+  .sapUiSizeCompact .sapMTokenizerIndicator {
+      color: #383c40;
+  }
+  
+  .workgroupncheader {
+      color: white;
+  }
