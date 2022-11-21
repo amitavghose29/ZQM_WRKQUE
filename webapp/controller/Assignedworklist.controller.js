@@ -29,6 +29,23 @@ sap.ui.define([
 		onExit: function () {
 			this._oTPC.destroy();
 		},
+        
+        onSearchWorkCenterFB: function (oEvent) {
+            var sValue = oEvent.getParameter("value");
+            var oFilter = new Filter("Value", FilterOperator.Contains, sValue);
+            var oBinding = oEvent.getParameter("itemsBinding");
+            oBinding.filter([oFilter]);
+        },
+        _handleConfirmWorkCenterFB: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem"),
+                oInput = this.oInpWrkCntFB;
+            if (!oSelectedItem) {
+                oInput.resetProperty("value");
+                return;
+            }
+            oInput.setValue(oSelectedItem.getTitle());
+            this._oWrkCntFBDialog.destroy();
+        },
         openNotePopUp: function(oEvent){
             var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
 			if(tab.length > 0){
@@ -447,25 +464,30 @@ sap.ui.define([
 
 
 		handleValueHelpWC: function (oEvent) {
-			var oView = this.getView();
-			this.inputId = oEvent.getSource().getId();
-
-			// create value help dialog
-			if (!this._pValueHelpDialog) {
-				this._pValueHelpDialog = Fragment.load({
-					id: oView.getId(),
-					name: "com.airbus.zqmwrkque.fragments.workcenter",
-					controller: this
-				}).then(function (oValueHelpDialog) {
-					oView.addDependent(oValueHelpDialog);
-					return oValueHelpDialog;
-				});
-			}
-
-			this._pValueHelpDialog.then(function (oValueHelpDialog) {
-				// open value help dialog
-				oValueHelpDialog.open();
-			});
+            this._oWrkCntFBDialog = sap.ui.xmlfragment("com.airbus.zqmwrkque.fragments.WorkCenterFBVH", this);
+            this.getView().addDependent(this._oWrkCntFBDialog);
+            this._oWrkCntFBDialog.open();
+            this.oInpWrkCntFB = oEvent.getSource();
+            sap.ui.core.BusyIndicator.show();
+            var oModel = new sap.ui.model.json.JSONModel();
+            var oDataModel = this.getOwnerComponent().getModel();
+            var oFilter = [];
+            oFilter.push(new Filter("Key", FilterOperator.EQ, "WRKCNTR"));
+            var sPath = "/f4_genericSet";
+            oDataModel.read(sPath, {
+                filters: oFilter,
+                success: function (oData, oResult) {
+                    sap.ui.core.BusyIndicator.hide();
+                    var data = oData.results;
+                    oModel.setData(data);
+                    this._oWrkCntFBDialog.setModel(oModel, "WrkCntModel");
+                }.bind(this),
+                error: function (oError) {
+                    sap.ui.core.BusyIndicator.hide();
+                    var msg = JSON.parse(oError.responseText).error.message.value;
+                    MessageBox.error(msg);
+                }
+            });
 		},
         handleValueHelpPS: function (oEvent) {
         },
