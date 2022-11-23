@@ -9,7 +9,10 @@
 							<!--<CheckBox text=" keep This List" selected="false"/>-->
 							<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
 								<Label text="{i18n>LBL_Workcenter}"/>
-								<Input  id="idWC" showValueHelp="true" valueHelpRequest="handleValueHelpWC" showSuggestion="true"></Input>
+								<Input  id="idWC" showValueHelp="true" valueHelpRequest="handleValueHelpWC" showSuggestion="true">
+								
+								
+								</Input>
 							</VBox>
 							<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
 								<Label text="{i18n>LBL_Production_Sequence}" class="sapUiSmallMarginEnd"/>

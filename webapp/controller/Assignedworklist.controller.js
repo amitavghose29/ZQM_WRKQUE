@@ -28,6 +28,7 @@ sap.ui.define([
 		},
 		onExit: function () {
 			this._oTPC.destroy();
+            //sap.ui.getCore().setModel(new sap.ui.model.json.JSONModel([]), "modeModel");
 		},
         
         onSearchWorkCenterFB: function (oEvent) {
@@ -102,9 +103,18 @@ sap.ui.define([
             var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
             if(tab.length > 0){
                 var ncr=tab[0].getCells()[0].mProperties.text;
+                var modeData = {};
+                modeData.ModeBtn = "EDIT";
+
+               // var pdata = "{\"modeBtn\":\"" + modeBtn + "\"}";
+               // var pJsnObj = JSON.parse(pdata);
+                var modeModel = new JSONModel();
+                modeModel.setData(modeData);
+                sap.ui.getCore().setModel(modeModel, "modeModel");
                 var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
                                     var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                                       target : { shellHash : "zqmncr-display&/Ncheader/"+ncr}
+                                     
                                     })) || "";
                                     oCrossAppNavigator.toExternal({
                                      target: {
