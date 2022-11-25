@@ -22,15 +22,16 @@
 									</layoutData>
 								</Input>
 							</VBox>
-							<!--<CheckBox text="Show All Groups" selected="true"/>
+							<CheckBox id="chkShowGrp" text="Show All Groups" />
 							<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
-								<CheckBox text="Show All Users" selected="true"/>
-								<CheckBox text="Show Unassigned" selected="true"/></VBox>-->
-								<RadioButtonGroup id="rbgFltrOpt" columns="2" class="sapUiMediumMarginBottom">
+								<CheckBox id="chkShowUsr" text="Show All Users" />
+								<CheckBox id="chkShowUnAs" text="Show Unassigned" />
+							</VBox>
+								<!--<RadioButtonGroup id="rbgFltrOpt" columns="2" class="sapUiMediumMarginBottom">
 			                       <RadioButton id="rbgFltrOpt-1" text="Show All Groups" />
 			                       <RadioButton id="rbgFltrOpt-2" text="Show All Users"/>
 			                       <RadioButton id="rbgFltrOpt-3" text="Show Unassigned" />
-		                        </RadioButtonGroup>	
+		                        </RadioButtonGroup>	-->
 							<Button text="Go" press="onWorklistSearch" type="Emphasized"></Button>
 						</FlexBox>
 						<Table id="wrkQueueTable" items="{oWorklistModel>/}" class="formcolor1" selectionChange="handleSelectionChange" growing="true" growingThreshold="100" growingScrollToLoad="false" includeItemInSelection="true" mode="SingleSelectLeft">

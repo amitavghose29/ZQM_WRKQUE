@@ -26,6 +26,24 @@ sap.ui.define([
 				//resetAllMode: ServiceReset,
 				persoService: WrkQueuePersoService
 			}).activate();
+            sap.ui.core.BusyIndicator.show();
+            var oModel = new JSONModel();
+            oModel.setSizeLimit(10000);
+            var oDataModel = this.getOwnerComponent().getModel();
+            var sPath = "/WorkingQueueRepSet"
+                oDataModel.read(sPath, {
+                   success: function (oData, oResult) {
+                         var data = oData.results;
+                         oModel.setData(data);
+                         this.getView().byId("wrkQueueTable").setModel(oModel, "oWorklistModel");
+                         sap.ui.core.BusyIndicator.hide();
+                     }.bind(this),
+                    error: function (oError) {
+                          sap.ui.core.BusyIndicator.hide();
+                          var msg = JSON.parse(oError.responseText).error.message.value;
+                          MessageBox.error(msg);
+                     }
+                   });
 
 		},
 		onExit: function () {
@@ -54,19 +72,28 @@ sap.ui.define([
             var oModel = new JSONModel();
             oModel.setSizeLimit(10000);
             var oDataModel = this.getOwnerComponent().getModel();
-            var sShowAllGroupSel = this.getView().byId("rbgFltrOpt-1").getSelected();
-            var sShowAllUserpSel = this.getView().byId("rbgFltrOpt-2").getSelected();
-            var sUnassignedSel =   this.getView().byId("rbgFltrOpt-3").getSelected();
+            var sShowAllGroupSel = this.getView().byId("chkShowGrp").getSelected();
+            var sShowAllUserpSel = this.getView().byId("chkShowUsr").getSelected();
+            var sUnassignedSel =   this.getView().byId("chkShowUnAs").getSelected();
+            var sValWorkCenter =   this.getView().byId("idWC").getValue();
+            var sValProdSequence=  this.getView().byId("idProdSeq").getValue();
             var oFilter = [];
-            if(sShowAllGroupSel || sShowAllUserpSel || sUnassignedSel){
-                if(sShowAllGroupSel){
-                    oFilter.push(new Filter(" ", FilterOperator.EQ, 'X'));
-                }else if (sShowAllUserpSel){
+            if(sShowAllGroupSel){
+                    oFilter.push(new Filter("Groups", FilterOperator.EQ, 'X'));
+            }
+            if (sShowAllUserpSel){
                     oFilter.push(new Filter("AllUsers", FilterOperator.EQ, 'X'));
-                }else if(sUnassignedSel){   
-                   oFilter.push(new Filter("", FilterOperator.EQ, 'X'));
-                }
-                var sPath = "/WorkingQueueRepSet"
+            }
+            if(sUnassignedSel){   
+                   oFilter.push(new Filter("UnAssigned", FilterOperator.EQ, 'X'));
+            }
+            if(sValWorkCenter != ""){
+                    oFilter.push(new Filter("WorkCenter", FilterOperator.EQ, sValWorkCenter));
+            } 
+            if (sValProdSequence != ""){
+                    oFilter.push(new Filter("ProductSequence", FilterOperator.EQ, sValProdSequence));
+            }
+            var sPath = "/WorkingQueueRepSet"
                 oDataModel.read(sPath, {
                     filters: oFilter,
                     success: function (oData, oResult) {
@@ -81,13 +108,7 @@ sap.ui.define([
                         MessageBox.error(msg);
                     }
                 });
-            
-
-            }else{
-               MessageBox.warning("Please select a either of the option");
-            }
-          
-         
+                  
         },
 
         onSearchProdSeqFB: function (oEvent) {
