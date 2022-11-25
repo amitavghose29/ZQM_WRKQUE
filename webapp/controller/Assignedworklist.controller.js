@@ -11,11 +11,13 @@ sap.ui.define([
     'sap/m/ButtonType',
     'sap/m/Button',
     'sap/m/MessageBox',
-	'sap/ui/core/Fragment'
-], function (TablePersoController, WrkQueuePersoService,Filter,FilterOperator,Controller,JSONModel,Dialog,TextArea,DialogType,ButtonType,Button,MessageBox,Fragment) {
+	'sap/ui/core/Fragment',
+    "../model/formatter"
+], function (TablePersoController, WrkQueuePersoService,Filter,FilterOperator,Controller,JSONModel,Dialog,TextArea,DialogType,ButtonType,Button,MessageBox,Fragment,formatter) {
 	"use strict";
     //var ResetAllMode =  mlibrary.ResetAllMode;
 	return Controller.extend("com.airbus.zqmwrkque.controller.Assignedworklist", {
+        formatter: formatter,
 		onInit: function () {
             this.bDesc = true;
 			this._oTPC = new TablePersoController({
@@ -47,6 +49,64 @@ sap.ui.define([
             oInput.setValue(oSelectedItem.getTitle());
             this._oWrkCntFBDialog.destroy();
         },
+        onWorklistSearch: function (oEvent){
+            sap.ui.core.BusyIndicator.show();
+            var oModel = new JSONModel();
+            oModel.setSizeLimit(10000);
+            var oDataModel = this.getOwnerComponent().getModel();
+            var sShowAllGroupSel = this.getView().byId("rbgFltrOpt-1").getSelected();
+            var sShowAllUserpSel = this.getView().byId("rbgFltrOpt-2").getSelected();
+            var sUnassignedSel =   this.getView().byId("rbgFltrOpt-3").getSelected();
+            var oFilter = [];
+            if(sShowAllGroupSel || sShowAllUserpSel || sUnassignedSel){
+                if(sShowAllGroupSel){
+                    oFilter.push(new Filter(" ", FilterOperator.EQ, 'X'));
+                }else if (sShowAllUserpSel){
+                    oFilter.push(new Filter("AllUsers", FilterOperator.EQ, 'X'));
+                }else if(sUnassignedSel){   
+                   oFilter.push(new Filter("", FilterOperator.EQ, 'X'));
+                }
+                var sPath = "/WorkingQueueRepSet"
+                oDataModel.read(sPath, {
+                    filters: oFilter,
+                    success: function (oData, oResult) {
+                        var data = oData.results;
+                        oModel.setData(data);
+                       this.getView().byId("wrkQueueTable").setModel(oModel, "oWorklistModel");
+                        sap.ui.core.BusyIndicator.hide();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.ui.core.BusyIndicator.hide();
+                        var msg = JSON.parse(oError.responseText).error.message.value;
+                        MessageBox.error(msg);
+                    }
+                });
+            
+
+            }else{
+               MessageBox.warning("Please select a either of the option");
+            }
+          
+         
+        },
+
+        onSearchProdSeqFB: function (oEvent) {
+            var sValue = oEvent.getParameter("value");
+            var oFilter = new Filter("Value", FilterOperator.Contains, sValue);
+            var oBinding = oEvent.getParameter("itemsBinding");
+            oBinding.filter([oFilter]);
+        },
+        _handleConfirmProdSeqFB: function (oEvent) {
+            var oSelectedItem = oEvent.getParameter("selectedItem"),
+                oInput = this.oInpPrdSeqFB;
+            if (!oSelectedItem) {
+                oInput.resetProperty("value");
+                return;
+            }
+            oInput.setValue(oSelectedItem.getTitle());
+            this._oProdSeqFBDialog.destroy();
+        },
+        
         openNotePopUp: function(oEvent){
             var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
 			if(tab.length > 0){
@@ -95,14 +155,16 @@ sap.ui.define([
 
         onSaveNote: function(oEvent){
             var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
-            var ncr=tab[0].getCells()[0].mProperties.text;
+            var ncr=this.getView().byId("wrkQueueTable").getSelectedItem().getBindingContext("oWorklistModel").getProperty("Notificatioin");
+            //tab[0].getCells()[0].mProperties.text;
             //Call OData to Save note for selected NC Number
         },
 
         onPressEdit: function(oEvent){
             var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
             if(tab.length > 0){
-                var ncr=tab[0].getCells()[0].mProperties.text;
+                var ncr=this.getView().byId("wrkQueueTable").getSelectedItem().getBindingContext("oWorklistModel").getProperty("Notificatioin");
+                //tab[0].getCells()[0].mProperties.text;
                 var modeData = {};
                 modeData.ModeBtn = "EDIT";
 
@@ -133,6 +195,7 @@ sap.ui.define([
 			var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
 			var saveData = {};
 			if(tab.length === 0){
+                MessageBox.alert("Please select the NC Number Line Item.");
 				/**this._pValueHelpDialog = Fragment.load({
 					id: oView.getId(),
 					name: "com.airbus.zqmwrkque.fragments.CopyNcr",
@@ -146,12 +209,13 @@ sap.ui.define([
 				oValueHelpDialog.open();
 
 			});**/
-			this._oNCDialog = sap.ui.xmlfragment("com.airbus.zqmwrkque.fragments.CopyNcr", this);
+			/**this._oNCDialog = sap.ui.xmlfragment("com.airbus.zqmwrkque.fragments.CopyNcr", this);
             this.getView().addDependent(this._oNCDialog);
             this._oNCDialog.open();
-            this._oNCDialog.setModel(this.getOwnerComponent().getModel());
+            this._oNCDialog.setModel(this.getOwnerComponent().getModel());**/
 			}else{
-				var ncCopy=tab[0].getCells()[0].mProperties.text;
+				var ncCopy=this.getView().byId("wrkQueueTable").getSelectedItem().getBindingContext("oWorklistModel").getProperty("Notificatioin");
+                //tab[0].getCells()[0].mProperties.text;
 				var payload = {
                     Notification: ncCopy,
                     "Message": ""
@@ -500,6 +564,30 @@ sap.ui.define([
             });
 		},
         handleValueHelpPS: function (oEvent) {
+            this._oProdSeqFBDialog = sap.ui.xmlfragment("com.airbus.zqmwrkque.fragments.ProdSeqFBVH", this);
+            this.getView().addDependent(this._oProdSeqFBDialog);
+            this._oProdSeqFBDialog .open();
+            this.oInpPrdSeqFB = oEvent.getSource();
+            sap.ui.core.BusyIndicator.show();
+            var oModel = new sap.ui.model.json.JSONModel();
+            var oDataModel = this.getOwnerComponent().getModel();
+            var oFilter = [];
+            oFilter.push(new Filter("Key", FilterOperator.EQ, "AIR"));
+            var sPath = "/f4_genericSet";
+            oDataModel.read(sPath, {
+                filters: oFilter,
+                success: function (oData, oResult) {
+                    sap.ui.core.BusyIndicator.hide();
+                    var data = oData.results;
+                    oModel.setData(data);
+                    this._oProdSeqFBDialog.setModel(oModel, "ProdSeqModel");
+                }.bind(this),
+                error: function (oError) {
+                    sap.ui.core.BusyIndicator.hide();
+                    var msg = JSON.parse(oError.responseText).error.message.value;
+                    MessageBox.error(msg);
+                }
+            });
         },
 
         onPersoButtonPressed: function (oEvent){
@@ -536,11 +624,17 @@ sap.ui.define([
                     }
                   };
 				
-				/**if (this.columnKey === "Ncr") {
-				 
-				}**/
+                  if (this.columnKey === "Ncr") {
+                    var oSorterVal = new sap.ui.model.Sorter('Notificatioin', this.bDesc);
+                    oSorter = [oSorterVal, oSorter];
+                  }
+
+                  if (this.columnKey === "Disc") {
+                    var oSorterVal = new sap.ui.model.Sorter('DiscNo', this.bDesc);
+                    oSorter = [oSorterVal, oSorter];
+                  }
 			  }
-			  var oTable = this.byId("wrkQueueTable");
+			  var oTable = this.getView().byId("wrkQueueTable");
 			  //this.byId("wrkQueueTable")
 			  oTable.getBinding("items").sort(oSorter);
 			  this.byId("idbuttonfilter").setIcon(this.bDesc ? 'sap-icon://sort-descending' :

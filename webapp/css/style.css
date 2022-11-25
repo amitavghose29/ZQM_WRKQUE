@@ -80,6 +80,10 @@
       text-align: start !important;
       width: 100%;
   }
+  .sapMIBar-CTX .sapMLabel {
+    color: #fff !important;
+}
+
   
   /*block layout background color*/
   .sapUiBlockLayoutSizeL:not(.sapUiBlockLayoutKeepFontSize) .sapUiBlockCellContent {
@@ -116,14 +120,21 @@
   .formcolor1 {
       background-color: #050298 !important;
   }
+
+  span.sapMBtnInner.sapMBtnEmphasized {
+    background-image: none;
+    background-color: #050298  !important; 
+    border-color: #050298  !important; 
+    color: #fff;
+    text-shadow: 0 0 0.125rem rgb(0 0 0 / 50%);
+}
+
   
   .sapMTB-Transparent-CTX>.sapMTitleTB.sapMTitleStyleAuto {
       color: white;
       /*font-size: 1.125rem;*/
   }
-  .formcolor1{
-     background-color:red;
-  }
+  
   .formcolor {
      background-color: #E2F0FE !important;
       /*background-color: #E2F0FE;*/
@@ -212,7 +223,14 @@
       min-width: 40rem;
       width: 1200px !important;
   }
-  
+  .sapMBtnIcon {
+	text-align:center;
+    margin:0;
+	padding:0;
+	vertical-align:top;
+	color:#fff !important;
+  }
+
   .vhdialogGRSearchstyle {
       min-width: 40rem;
       width: 900px !important;

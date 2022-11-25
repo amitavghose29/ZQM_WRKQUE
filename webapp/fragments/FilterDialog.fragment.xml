@@ -3,7 +3,6 @@
     <sortItems>
       <ViewSettingsItem text="{i18n>TXT_Ncrno}" key="Ncr" selected="true"/>
       <ViewSettingsItem text="{i18n>TXT_Discno}" key="Disc"/>
-      <ViewSettingsItem text="{i18n>TXT_Componentno}" key="Comp" />
-    </sortItems>
+     </sortItems>
   </ViewSettingsDialog>
 </core:FragmentDefinition>

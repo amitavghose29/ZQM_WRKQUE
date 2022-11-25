@@ -3,7 +3,7 @@
 	<!--<Shell id="shell">-->
 		<App id="app">
 			<pages>
-				<Page id="page" title="{i18n>title}" titleAlignment="Center">
+				<Page id="page" title="{i18n>title}">
 					<content>
 						<FlexBox height="100px" alignItems="Start" justifyContent="Start">
 							<!--<CheckBox text=" keep This List" selected="false"/>-->
@@ -22,21 +22,26 @@
 									</layoutData>
 								</Input>
 							</VBox>
-							<CheckBox text="Show All Groups" selected="true"/>
+							<!--<CheckBox text="Show All Groups" selected="true"/>
 							<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
 								<CheckBox text="Show All Users" selected="true"/>
-								<CheckBox text="Show Unassigned" selected="true"/></VBox>
-								<Button text="Go" click="onSearch" design="Emphasized"></Button>
+								<CheckBox text="Show Unassigned" selected="true"/></VBox>-->
+								<RadioButtonGroup id="rbgFltrOpt" columns="2" class="sapUiMediumMarginBottom">
+			                       <RadioButton id="rbgFltrOpt-1" text="Show All Groups" />
+			                       <RadioButton id="rbgFltrOpt-2" text="Show All Users"/>
+			                       <RadioButton id="rbgFltrOpt-3" text="Show Unassigned" />
+		                        </RadioButtonGroup>	
+							<Button text="Go" press="onWorklistSearch" type="Emphasized"></Button>
 						</FlexBox>
-						<Table id="wrkQueueTable" items="" selectionChange="handleSelectionChange" growing="true" growingThreshold="100" growingScrollToLoad="false" includeItemInSelection="true" mode="SingleSelectMaster">
+						<Table id="wrkQueueTable" items="{oWorklistModel>/}" class="formcolor1" selectionChange="handleSelectionChange" growing="true" growingThreshold="100" growingScrollToLoad="false" includeItemInSelection="true" mode="SingleSelectLeft">
 							<headerToolbar>
 								<OverflowToolbar>
 									<Title id="TableHeaderCount" text="{i18n>TXT_Assigned_WorkList}" level="H2"/>
 									<ToolbarSpacer/>
-									<Button icon="sap-icon://notes" type="Emphasized"  press="openNotePopUp"/>
-									<Button icon="sap-icon://create" type="Emphasized" press="onCreate"/>
-									<Button icon="sap-icon://copy" press="onPressCopy" type="Emphasized"/>
-									<Button icon="sap-icon://edit" press="onPressEdit" type="Emphasized"/>
+									<Button icon="sap-icon://notes" type="Emphasized"  press="openNotePopUp" tooltip="Save Note"/>
+									<Button icon="sap-icon://create" type="Emphasized" press="onCreate" tooltip="Create"/>
+									<Button icon="sap-icon://copy" press="onPressCopy" type="Emphasized" tooltip="Copy"/>
+									<Button icon="sap-icon://edit" press="onPressEdit" type="Emphasized" tooltip="Edit"/>
 									<!--<Button tooltip="Sort" id="idsort" icon="sap-icon://sort" press="handleSortButtonPressed"/>-->
 									<Button tooltip="Filter" id="idbuttonfilter" icon="sap-icon://filter" press="handleFilterButtonPressed"/>
 									<!--<Button tooltip="Group" id="idgroup" icon="sap-icon://group-2" press="handleGroupButtonPressed"/>-->
@@ -74,14 +79,14 @@
 							<items>
 								<ColumnListItem >
 									<cells>
-										<Text text="200000700"/>
-										<Text text="0001"/>
-										<Text text="Q3 Internal Notif."/>
-										<Text text="A220-IP-701"/>
-										<Text text="3 Medium"/>
-										<Text text="MRB 946"/>
-										<Text text="NWA_WC1"/>
-										<Text text="12-20-2021"/>
+										<Text text="{oWorklistModel>Notificatioin}"/>
+										<Text text="{oWorklistModel>DiscNo}"/>
+										<Text text="{oWorklistModel>NcrType}"/>
+										<Text text="{oWorklistModel>Component}"/>
+										<Text text="{oWorklistModel>Priority}"/>
+										<Text text="{oWorklistModel>LocationPart}"/>
+										<Text text="{oWorklistModel>DetectedWorkCenter}"/>
+										<Text text="{path:'oWorklistModel>DetectedDate', formatter: '.formatter.prdordDate'}"/>
 									</cells>
 								</ColumnListItem>
 							
