@@ -25,13 +25,13 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 					id: "wrkQueueApp-wrkQueueTable-nctypCol",
 					order: 2,
 					text: "NCR Types",
-					visible: false
+					visible: true
 				},
 				{
 					id: "wrkQueueApp-wrkQueueTable-compCol",
 					order: 3,
 					text: "Component No",
-					visible: false
+					visible: true
 				},
 				{
 					id: "wrkQueueApp-wrkQueueTable-rncCol",
