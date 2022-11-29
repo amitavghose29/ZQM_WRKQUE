@@ -12,15 +12,9 @@
                         <fb:control>
                             <Input id="idFBNcNum" valueHelpRequest="onNCNoFBVHRequest" showValueHelp="true" 
                             showSuggestion="true" 
-                            suggestionItems="{ path : '/f4_genericSet',
-                                filters : [{   
-                                 path : 'Key',                        
-                                 operator : 'EQ',
-                                 value1 : 'NOTIF'
-                                    }]
-                                }" >
+                            suggestionItems="{oNcNumSuggModel>/}" >
                                 <suggestionItems>
-									<core:Item text="{Value}" />
+									<core:Item text="{oNcNumSuggModel>Value}" />
 								</suggestionItems>
 							</Input>
                         </fb:control>
@@ -29,15 +23,9 @@
                             <fb:control>
                                 <Input id="idFBSerNo" valueHelpRequest="onSerNoFBVHRequest" showValueHelp="true"
                                 showSuggestion="true" 
-                                suggestionItems="{ path : '/f4_genericSet',
-                                    filters : [{   
-                                     path : 'Key',                        
-                                     operator : 'EQ',
-                                     value1 : 'SERNR'
-                                        }]
-                                    }" >
+                                suggestionItems="{oSerNoSuggModel>/}" >
                                     <suggestionItems>
-									<core:Item text="{Value}" />
+									<core:Item text="{oSerNoSuggModel>Value}" />
 								</suggestionItems>
 							</Input>
                             </fb:control>
@@ -46,15 +34,9 @@
                         <fb:control>
                             <Input id="idFBAircraft" valueHelpRequest="onAircrafthelpRequest" showValueHelp="true"
                              showSuggestion="true" 
-                             suggestionItems="{ path : '/f4_genericSet',
-                            filters : [{   
-                                 path : 'Key',                        
-                                 operator : 'EQ',
-                                 value1 : 'AIR'
-                                    }]
-                                }" >
+                             suggestionItems="{oAircrafttNoSuggModel>/}" >
                                     <suggestionItems>
-									<core:Item text="{Value}" />
+									<core:Item text="{oAircrafttNoSuggModel>Value}" />
 								</suggestionItems>
 							</Input>
                         </fb:control>
@@ -62,7 +44,7 @@
                 </fb:filterGroupItems>
             </fb:FilterBar>
             <Table id="idCopyNCTable" inset="false" items="{oNcCopyModel>/}" mode="SingleSelectMaster" 
-				itemPress="handleCloseUserValueHelpNCcopy">
+				itemPress="handleCloseUserValueHelpNCcopy" growing="true" growingThreshold="10">
                 <columns>
                     <Column minScreenWidth="Tablet" demandPopin="true">
                         <Text text="{i18n>Nc}" />
@@ -89,8 +71,8 @@
                     <ColumnListItem vAlign="Middle" type="Active">
                         <cells>
                             <Text text="{oNcCopyModel>Notification}"/>
-                            <Text text="{oNcCopyModel>NotifType}"/>
                             <Text text="{oNcCopyModel>NotificationType}"/>
+                            <Text text="{oNcCopyModel>NotifType}"/>
                             <Text text="{oNcCopyModel>Description}"/>
                             <Text text="{oNcCopyModel>SerialNumber}"/>
                             <Text text="{oNcCopyModel>Aircraft}"/>
