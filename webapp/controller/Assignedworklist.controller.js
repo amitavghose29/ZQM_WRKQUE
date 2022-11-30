@@ -139,7 +139,9 @@ sap.ui.define([
                         beginButton: new Button({
                             type: ButtonType.Emphasized,
                             text: "OK",
-                            press: function () {
+                            press: function (oEvent) {
+                                var oComment=oEvent.getSource().getParent().getContent()[0].mProperties.value;
+                                this.onSaveNote(oComment);
                                 this.oNoteMessageDialog.close();
                             }.bind(this)
                         })
@@ -174,9 +176,27 @@ sap.ui.define([
 			var sPath = oEvent.getParameter("listItem").getBindingContextPath();
 		},
 
-        onSaveNote: function(oEvent){
-            var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
+        onSaveNote: function(oComment){
             var ncr=this.getView().byId("wrkQueueTable").getSelectedItem().getBindingContext("oWorklistModel").getProperty("Notificatioin");
+            var oDiscrepancy = this.getView().byId("wrkQueueTable").getSelectedItem().getBindingContext("oWorklistModel").getProperty("DiscNo");
+           var oCommentPayload = {
+                "Discrepancy": oDiscrepancy,
+                "Comments": oComment
+            };
+            this.getOwnerComponent().getModel().update("/WorkQueueCommentSet('" + ncr + "')", oCommentPayload,{
+              method: "PUT",
+              success: function (oData, oResponse) {
+                  MessageBox.success("Note Saved Successfully for NCR Number:"+" "+ncr);
+            
+              }.bind(this),
+              error: function (oError) {
+               var msg = JSON.parse(oError.responseText).error.message.value;
+                MessageBox.error(msg);
+              }
+
+              });
+            
+            
             //tab[0].getCells()[0].mProperties.text;
             //Call OData to Save note for selected NC Number
         },
