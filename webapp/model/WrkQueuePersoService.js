@@ -12,7 +12,7 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 				{
 					id: "wrkQueueApp-wrkQueueTable-ncrCol",
 					order: 0,
-					text: "NCR Number",
+					text: "NC Number",
 					visible: true
 				},
 				{
@@ -24,7 +24,7 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 				{
 					id: "wrkQueueApp-wrkQueueTable-nctypCol",
 					order: 2,
-					text: "NCR Types",
+					text: "NC Types",
 					visible: true
 				},
 				{
@@ -36,7 +36,7 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 				{
 					id: "wrkQueueApp-wrkQueueTable-rncCol",
 					order: 4,
-					text: "RNC Priority",
+					text: "NC Priority",
 					visible: false
 				},
                 {
@@ -66,7 +66,7 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 				{
 					id: "wrkQueueApp-wrkQueueTable-ncrCol",
 					order: 0,
-					text: "NCR Number",
+					text: "NC Number",
 					visible: true
 				},
 				{
@@ -78,7 +78,7 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 				{
 					id: "wrkQueueApp-wrkQueueTable-nctypCol",
 					order: 2,
-					text: "NCR Types",
+					text: "NC Types",
 					visible: false
 				},
 				{
@@ -90,7 +90,7 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 				{
 					id: "wrkQueueApp-wrkQueueTable-rncCol",
 					order: 4,
-					text: "RNC Priority",
+					text: "NC Priority",
 					visible: false
 				},
                 {
