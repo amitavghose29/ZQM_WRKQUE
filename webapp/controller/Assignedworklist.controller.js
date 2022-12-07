@@ -19,6 +19,10 @@ sap.ui.define([
 	return Controller.extend("com.airbus.zqmwrkque.controller.Assignedworklist", {
         formatter: formatter,
 		onInit: function () {
+          var sComponentId = sap.ui.core.Component.getOwnerIdFor(this.getView());
+          var oStartUpParameters = sap.ui.component(sComponentId).getComponentData().startupParameters;
+          var oAppTitle=oStartUpParameters.App[0];
+          this.getView().byId("page").setTitle(oAppTitle);
             this.bDesc = true;
 			this._oTPC = new TablePersoController({
 				table: this.byId("wrkQueueTable"),
