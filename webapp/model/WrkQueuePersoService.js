@@ -37,25 +37,25 @@ sap.ui.define(['sap/ui/thirdparty/jquery'],
 					id: "wrkQueueApp-wrkQueueTable-rncCol",
 					order: 4,
 					text: "NC Priority",
-					visible: false
+					visible: true
 				},
                 {
 					id: "wrkQueueApp-wrkQueueTable-locCol",
 					order: 5,
 					text: "Location Part",
-					visible: false
+					visible: true
 				},
                 {
 					id: "wrkQueueApp-wrkQueueTable-detworkCol",
 					order: 6,
 					text: "Det. Work Center",
-					visible: false
+					visible: true
 				},
                 {
 					id: "wrkQueueApp-wrkQueueTable-detectedCol",
 					order: 7,
 					text: "Detected Date",
-					visible: false
+					visible: true
 				}
 			]
 		},

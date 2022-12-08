@@ -21,8 +21,8 @@ sap.ui.define([
 		onInit: function () {
           var sComponentId = sap.ui.core.Component.getOwnerIdFor(this.getView());
           var oStartUpParameters = sap.ui.component(sComponentId).getComponentData().startupParameters;
-          var oAppTitle=oStartUpParameters.App[0];
-          this.getView().byId("page").setTitle(oAppTitle);
+          this.oAppTitle=oStartUpParameters.App[0];
+          this.getView().byId("page").setTitle(this.oAppTitle);
             this.bDesc = true;
 			this._oTPC = new TablePersoController({
 				table: this.byId("wrkQueueTable"),
@@ -713,7 +713,7 @@ sap.ui.define([
 			this._oTPC.openDialog();
 
 		},
-		handleFilterButtonPressed: function(oEvent){
+		handleSortButtonPressed: function(oEvent){
 			if (!this.oFilterFragment) {
 				this.oFilterFragment = sap.ui.xmlfragment("filterFragment", "com.airbus.zqmwrkque.fragments.FilterDialog", this);
 				this.getView().addDependent(this.oFilterFragment);
@@ -721,7 +721,7 @@ sap.ui.define([
 			  this.oFilterFragment.open();
 
 		},
-		onFilter: function (oEvent) {
+		onSorter: function (oEvent) {
 			if (oEvent) {
 				this.columnText = oEvent.getParameters().sortItem.getText();
 				this.columnKey = oEvent.getParameters().sortItem.getKey();
@@ -756,7 +756,7 @@ sap.ui.define([
 			  var oTable = this.getView().byId("wrkQueueTable");
 			  //this.byId("wrkQueueTable")
 			  oTable.getBinding("items").sort(oSorter);
-			  this.byId("idbuttonfilter").setIcon(this.bDesc ? 'sap-icon://sort-descending' :
+			  this.byId("idbuttonsort").setIcon(this.bDesc ? 'sap-icon://sort-descending' :
 				'sap-icon://sort-ascending');
 
 

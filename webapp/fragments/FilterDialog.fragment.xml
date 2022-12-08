@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-  <ViewSettingsDialog title="{i18n>SORT_Settings}" sortDescending="true" groupDescending="true" confirm="onFilter">
+  <ViewSettingsDialog title="{i18n>SORT_Settings}" sortDescending="true" groupDescending="true" confirm="onSorter">
     <sortItems>
       <ViewSettingsItem text="{i18n>TXT_Ncrno}" key="Ncr" selected="true"/>
       <ViewSettingsItem text="{i18n>TXT_Discno}" key="Disc"/>
