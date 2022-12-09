@@ -161,6 +161,11 @@ sap.ui.define([
           
         },
 		onCreate: function(oEvent){
+            var modeData = {};
+            modeData.ModeBtn = "CREATE";
+            var modeModel = new JSONModel();
+            modeModel.setData(modeData);
+            sap.ui.getCore().setModel(modeModel, "modeModel");
 			var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
 			var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
 			target: {
