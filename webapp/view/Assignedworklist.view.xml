@@ -39,6 +39,8 @@
 								<OverflowToolbar>
 									<Title id="TableHeaderCount" text="{i18n>TXT_Assigned_WorkList}" level="H2"/>
 									<ToolbarSpacer/>
+									
+									<Button icon="sap-icon://activity-items" type="Emphasized"  press="handleUnSelect" tooltip="UnSelect"/>
 									<Button icon="sap-icon://notes" type="Emphasized"  press="openNotePopUp" tooltip="Save Note"/>
 									<Button icon="sap-icon://create" type="Emphasized" press="onCreate" tooltip="Create"/>
 									<Button icon="sap-icon://copy" press="onPressCopy" type="Emphasized" tooltip="Copy"/>

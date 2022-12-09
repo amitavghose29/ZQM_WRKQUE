@@ -87,6 +87,11 @@ sap.ui.define([
             oInput.setValue(oSelectedItem.getTitle());
             this._oWrkCntFBDialog.destroy();
         },
+
+        handleUnSelect: function(oEvent){
+            this.getView().byId("wrkQueueTable").removeSelections();
+
+        },
         onWorklistSearch: function (oEvent){
             sap.ui.core.BusyIndicator.show();
             var oModel = new JSONModel();
