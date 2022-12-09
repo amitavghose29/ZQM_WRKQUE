@@ -24,35 +24,51 @@ sap.ui.define([
           this.oAppTitle=oStartUpParameters.App[0];
           this.getView().byId("page").setTitle(this.oAppTitle);
             this.bDesc = true;
+            var oCancelBtn="";
 			this._oTPC = new TablePersoController({
 				table: this.byId("wrkQueueTable"),
 				componentName: "wrkQueueApp",
 				//resetAllMode: ServiceReset,
 				persoService: WrkQueuePersoService
 			}).activate();
-            sap.ui.core.BusyIndicator.show();
-            var oModel = new JSONModel();
-            oModel.setSizeLimit(10000);
-            var oDataModel = this.getOwnerComponent().getModel();
-            var sPath = "/WorkingQueueRepSet"
-                oDataModel.read(sPath, {
-                   success: function (oData, oResult) {
-                         var data = oData.results;
-                         oModel.setData(data);
-                         this.getView().byId("wrkQueueTable").setModel(oModel, "oWorklistModel");
-                         sap.ui.core.BusyIndicator.hide();
-                     }.bind(this),
-                    error: function (oError) {
-                          sap.ui.core.BusyIndicator.hide();
-                          var msg = JSON.parse(oError.responseText).error.message.value;
-                          MessageBox.error(msg);
-                     }
-                   });
+            if (sap.ui.getCore().getModel("cancelModel")) {
+                if ((sap.ui.getCore().getModel("cancelModel").oData.ModeBtn != "")) {  
+                    oCancelBtn=sap.ui.getCore().getModel("cancelModel").oData.ModeBtn;
+                
+                }
+            }
+            if(oCancelBtn == "CANCEL"){
+                this.getView().byId("wrkQueueTable").setModel(sap.ui.getCore().getModel("workListModel"), "oWorklistModel");
+            }else{
+                sap.ui.core.BusyIndicator.show();
+                var oModel = new JSONModel();
+                oModel.setSizeLimit(10000);
+                var oDataModel = this.getOwnerComponent().getModel();
+                var sPath = "/WorkingQueueRepSet"
+                    oDataModel.read(sPath, {
+                       success: function (oData, oResult) {
+                             var data = oData.results;
+                             oModel.setData(data);
+                             this.getView().byId("wrkQueueTable").setModel(oModel, "oWorklistModel");
+                             sap.ui.core.BusyIndicator.hide();
+                         }.bind(this),
+                        error: function (oError) {
+                              sap.ui.core.BusyIndicator.hide();
+                              var msg = JSON.parse(oError.responseText).error.message.value;
+                              MessageBox.error(msg);
+                         }
+                       });
 
+            }
 		},
 		onExit: function () {
 			this._oTPC.destroy();
             //sap.ui.getCore().setModel(new sap.ui.model.json.JSONModel([]), "modeModel");
+            var modeData = {};
+            modeData.ModeBtn = "";
+            var modeModel = new JSONModel();
+            modeModel.setData(modeData);
+            sap.ui.getCore().setModel(modeModel, "cancelModel");
 		},
         
         onSearchWorkCenterFB: function (oEvent) {
@@ -166,7 +182,7 @@ sap.ui.define([
             var modeModel = new JSONModel();
             modeModel.setData(modeData);
             sap.ui.getCore().setModel(modeModel, "modeModel");
-			var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
 			var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
 			target: {
 			semanticObject: "zqmncr",
@@ -213,6 +229,7 @@ sap.ui.define([
         onPressEdit: function(oEvent){
             var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
             if(tab.length > 0){
+                sap.ui.getCore().setModel(this.getView().byId("wrkQueueTable").getModel("oWorklistModel"), "workListModel");
                 var ncr=this.getView().byId("wrkQueueTable").getSelectedItem().getBindingContext("oWorklistModel").getProperty("Notificatioin");
                 //tab[0].getCells()[0].mProperties.text;
                 var modeData = {};
@@ -243,6 +260,7 @@ sap.ui.define([
           
 		  var oView = this.getView();
 			var tab = this.getView().byId("wrkQueueTable").getSelectedItems();
+            sap.ui.getCore().setModel(this.getView().byId("wrkQueueTable").getModel("oWorklistModel"), "workListModel");
 			var saveData = {};
 			if(tab.length === 0){
                 //MessageBox.alert("Please select the NC Number Line Item.");
